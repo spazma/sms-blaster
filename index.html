@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <title>SMS Blaster – Rypnij SMS z PC</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    SMS BLASTER • Rypnij SMS z PC
+    <button id="btnStreamer" class="btn-small btn-top-right">Streamer: OFF</button>
+  </div>
+
+  <div class="content">
+    <!-- lewa kolumna -->
+    <div class="card">
+      <h2>Nowa wiadomość</h2>
+      <small>Wpada prosto na Twój telefon przez Automate.</small>
+
+      <div class="input-group mt">
+        <label for="contactSelect">Książka numerów (local storage)</label>
+        <select id="contactSelect">
+          <option value="">— wybierz kontakt —</option>
+        </select>
+        <div id="contactChips" class="mt"></div>
+        <button id="btnAddContact" class="btn-small mt">+ kontakt</button>
+      </div>
+
+      <div class="input-group">
+        <label for="phone">Numer telefonu</label>
+        <input id="phone" type="text" placeholder="+48 600 000 000">
+      </div>
+
+      <div class="input-group">
+        <label for="message">Treść wiadomości <span id="charCounter">(0/160)</span></label>
+        <textarea id="message" placeholder="Co wysyłamy?"></textarea>
+      </div>
+
+      <button id="btnSend" class="btn-main">WYŚLIJ SMS</button>
+      <small class="mt">Ctrl+Enter także wysyła.</small>
+    </div>
+
+    <!-- prawa kolumna -->
+    <div class="card">
+      <h2>Status & logi</h2>
+      <small>Podgląd tego, co dzieje się:</small>
+
+      <div class="export-row mt">
+        <button id="btnClearLogs" class="btn-small">Wyczyść log</button>
+        <button id="btnExportHistory" class="btn-small">Eksportuj historię .txt</button>
+        <button id="btnExportContacts" class="btn-small">Eksportuj książkę .txt</button>
+      </div>
+
+      <div id="logs" class="logs"></div>
+
+      <h2 class="mt">Ostatnie SMS</h2>
+      <small>Kliknij, aby wczytać numer i treść.</small>
+      <div id="history" class="history-list mt"></div>
+    </div>
+  </div>
+
+<div class="footer">
+  <span class="footer-left">by spazmozaur @ 6.12.2025</span>
+  <span class="footer-right">
+    <button id="btnHelp" class="btn-small">Instrukcja: Automate + SMS Blaster</button>
+  </span>
+</div>
+
+
+<div id="toast" class="notification"></div>
+
+<!-- matrix overlay -->
+<div id="matrixOverlay" class="matrix-overlay"></div>
+
+<!-- modal pomocy -->
+<div id="helpModal" class="modal">
+  <div class="modal-content">
+    <h2>Instrukcja: Automate + SMS Blaster</h2>
+    <ol>
+      <li>Upewnij się, że telefon i PC są w tej samej sieci Wi‑Fi.</li>
+      <li>W Automate utwórz nowy flow.</li>
+      <li>Dodaj blok <b>HTTP server</b>:
+        <br>• metoda: <b>GET</b>
+        <br>• ścieżka: <b>/webhook.*</b>
+        <br>• port: taki sam jak w <code>WEBHOOK_URL</code>.
+      </li>
+      <li>Jako wynik bloku HTTP zapisz pełny URL w zmiennej, np. <code>httpReqURL</code>.</li>
+      <li>Dodaj dwa bloki <b>Variable set</b>:
+        <br>• <code>nr</code>: <code>urlDecode(replaceAll(httpReqURL, ".*[?&]nr=([^&]+).*", "$1"))</code>
+        <br>• <code>msg</code>: <code>urlDecode(replaceAll(httpReqURL, ".*[?&]msg=([^&]+).*", "$1"))</code>
+      </li>
+      <li>Dodaj blok <b>Send SMS without user interaction</b>:
+        <br>• Number: <code>nr</code>
+        <br>• Message: <code>msg</code>
+        <br>• Subscription id: odpowiednia karta SIM.</li>
+      <li>W tym pliku, w <code>app.js</code>, ustaw adres IP telefonu w stałej <code>WEBHOOK_URL</code>.</li>
+    </ol>
+    <button id="btnHelpClose" class="btn-small btn-modal-close">Zamknij</button>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
