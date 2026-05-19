@@ -5,6 +5,8 @@ Instrukcja: Automate + SMS Blaster
 
 	ściągnij stąd 3 pliki do jednego katalogu (app.js, style.css, index.html)
 
+	ze sklepu google: Automate (by LlamaLab)
+
     Upewnij się, że telefon i PC są w tej samej sieci Wi‑Fi.
     W Automate utwórz nowy flow.
     Dodaj blok HTTP server:
