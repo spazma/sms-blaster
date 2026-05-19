@@ -21,4 +21,4 @@ Instrukcja: Automate + SMS Blaster
     • Subscription id: odpowiednia karta SIM.
     W tym pliku, w app.js, ustaw adres IP telefonu w stałej WEBHOOK_URL.
 
-    <img width="961" height="848" alt="4566firefox_3KWyaQLdxh" src="https://github.com/user-attachments/assets/e9995d1a-b8e5-4905-90f3-7450a322da7a" />
+<img width="961" height="848" alt="4566firefox_3KWyaQLdxh" src="https://github.com/user-attachments/assets/e9995d1a-b8e5-4905-90f3-7450a322da7a" />
